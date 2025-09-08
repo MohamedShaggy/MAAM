@@ -7,13 +7,12 @@ const JWT_SECRET = process.env.JWT_SECRET || '7ca1d0290f51259acaf17e35fe2a6d2d9f
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Skip middleware for API routes, static files, uploads, etc.
+  // Skip middleware for API routes, static files, etc.
   if (pathname.startsWith('/api') ||
       pathname.startsWith('/_next/static') ||
       pathname.startsWith('/_next/image') ||
-      pathname.startsWith('/uploads') ||
       pathname === '/favicon.ico' ||
-      pathname.match(/\..*$/)) {
+      pathname.match(/\.(jpg|jpeg|png|gif|webp|svg|ico|css|js)$/)) {
     return NextResponse.next()
   }
 

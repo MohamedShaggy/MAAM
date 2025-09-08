@@ -173,9 +173,17 @@ pids
 # Database
 postgres_data/
 
-# Upload directories (keep the structure but ignore contents)
-public/uploads/*
-!public/uploads/.gitkeep
+# Uploaded images in public folder (ignore uploaded images but keep essential files)
+public/*.jpg
+public/*.jpeg
+public/*.png
+public/*.gif
+public/*.webp
+public/*.svg
+!public/placeholder*.*
+!public/favicon.*
+!public/logo.*
+!public/profile-image.jpg
 
 # Build artifacts
 dist/

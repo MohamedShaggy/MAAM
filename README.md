@@ -124,7 +124,7 @@ I'm an IT Support Engineer with over two years of experience setting up, fixing,
    .\convert_image.bat
 
    # Option 3: Manual conversion (if ImageMagick is installed)
-   magick "uploads/2Z1A2029.CR2" -resize 400x400 -quality 85 "public/profile-image.jpg"
+   magick "public/2Z1A2029.CR2" -resize 400x400 -quality 85 "public/profile-image.jpg"
    ```
 
 2. **Alternative methods:**

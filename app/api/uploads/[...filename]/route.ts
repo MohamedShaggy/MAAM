@@ -8,7 +8,7 @@ export async function GET(
 ) {
   try {
     const filename = params.filename.join('/')
-    const uploadDir = process.env.UPLOAD_DIR || './public/uploads'
+    const uploadDir = process.env.UPLOAD_DIR || './public'
     const filepath = path.join(uploadDir, filename)
 
     // Check if file exists

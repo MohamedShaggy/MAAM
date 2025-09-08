@@ -15,7 +15,7 @@ export class FileUploadService {
   private uploadDir: string
   private maxFileSize: number
 
-  constructor(uploadDir = './public/uploads', maxFileSize = 10485760) { // 10MB default
+  constructor(uploadDir = './public', maxFileSize = 10485760) { // 10MB default
     this.uploadDir = uploadDir
     this.maxFileSize = maxFileSize
   }
@@ -51,7 +51,7 @@ export class FileUploadService {
       originalName: file.name,
       mimetype: file.type,
       size: file.size,
-      url: `/uploads/${filename}`,
+      url: `/${filename}`,
       path: filepath,
     }
   }
@@ -67,12 +67,12 @@ export class FileUploadService {
   }
 
   getFileUrl(filename: string): string {
-    return `/uploads/${filename}`
+    return `/${filename}`
   }
 }
 
 // Create upload service instance
 export const uploadService = new FileUploadService(
-  process.env.UPLOAD_DIR || './public/uploads',
+  process.env.UPLOAD_DIR || './public',
   parseInt(process.env.MAX_FILE_SIZE || '10485760')
 )

@@ -2,7 +2,7 @@
 # Install ImageMagick first: winget install ImageMagick.ImageMagick
 
 param(
-    [string]$inputFile = "public/uploads/profile.CR2",
+    [string]$inputFile = "public/profile.CR2",
     [string]$outputFile = "public/profile-image.jpg"
 )
 
@@ -16,7 +16,7 @@ if (!(Get-Command magick -ErrorAction SilentlyContinue)) {
 # Check if input file exists
 if (!(Test-Path $inputFile)) {
     Write-Host "Input file not found: $inputFile"
-    Write-Host "Please place your image file in the public/uploads/ folder"
+    Write-Host "Please place your image file in the public/ folder"
     exit 1
 }
 
