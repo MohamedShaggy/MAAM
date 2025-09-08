@@ -110,13 +110,13 @@ export default function Portfolio() {
           <div className="space-y-6 animate-fade-in">
             <div className="inline-block">
               <div className="relative px-3 py-1 text-sm font-medium rounded-full bg-background/10 backdrop-blur-sm border border-border mb-4 mt-4 animate-smooth">
-                <span className="relative z-10">Professional Portfolio Platform</span>
+                <span className="relative z-10">IT Support Engineer & Developer</span>
                 <span className="absolute inset-0 rounded-full bg-gradient-primary-opacity animate-pulse"></span>
               </div>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight animate-slide-up">
               <span className="block">{siteContent.sections.hero.greeting}</span>
-              <span className="bg-clip-text text-transparent bg-gradient-primary">PortfolioPro</span>
+              <span className="bg-clip-text text-transparent bg-gradient-primary">{siteContent.sections.hero.namePrefix}</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-[600px] animate-fade-in">{siteContent.sections.hero.description}</p>
             <div className="flex flex-wrap gap-4 pt-4 animate-fade-in">
@@ -436,11 +436,11 @@ export default function Portfolio() {
           <div>
             <Link href="/" className="font-bold text-xl">
               <span className="bg-clip-text text-transparent bg-gradient-primary">
-                PortfolioPro
+                Mohamed Abdelrazig
               </span>
             </Link>
             <p className="text-sm text-muted-foreground mt-2">
-              © {new Date().getFullYear()} PortfolioPro. {siteContent.footer.copyrightText}.
+              © {new Date().getFullYear()} Mohamed Abdelrazig Abdelrahim. {siteContent.footer.copyrightText}.
             </p>
           </div>
           <div className="flex gap-4">
