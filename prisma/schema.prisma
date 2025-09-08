@@ -1,0 +1,256 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User authentication
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  personalInfo PersonalInfo?
+  settings     UserSettings?
+  messages     Message[]
+  skills       Skill[]
+  projects     Project[]
+  experiences  Experience[]
+  socialLinks  SocialLink[]
+
+  @@map("users")
+}
+
+// Personal Information
+model PersonalInfo {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  name            String
+  title           String
+  description     String
+  email           String
+  location        String
+  phone           String?
+  bio             String?
+  avatar          String?
+  availability    String   @default("Available")
+  availabilityStatus String @default("available")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("personal_info")
+}
+
+// Skills
+model Skill {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String
+  level       Int      @default(50)
+  category    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("skills")
+}
+
+// Projects
+model Project {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  description String
+  image       String?
+  demoUrl     String?
+  repoUrl     String?
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tags ProjectTag[]
+
+  @@map("projects")
+}
+
+// Project Tags
+model ProjectTag {
+  id        String  @id @default(cuid())
+  projectId String
+  tag       String
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, tag])
+  @@map("project_tags")
+}
+
+// Experience
+model Experience {
+  id          String   @id @default(cuid())
+  userId      String
+  company     String
+  position    String
+  duration    String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  technologies ExperienceTech[]
+
+  @@map("experience")
+}
+
+// Experience Technologies
+model ExperienceTech {
+  id           String     @id @default(cuid())
+  experienceId String
+  technology   String
+
+  experience Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+
+  @@unique([experienceId, technology])
+  @@map("experience_technologies")
+}
+
+// Social Links
+model SocialLink {
+  id        String   @id @default(cuid())
+  userId    String
+  platform  String
+  url       String
+  icon      String   @default("Globe")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("social_links")
+}
+
+// Site Content
+model SiteContent {
+  id        String   @id @default(cuid())
+  section   String
+  key       String
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([section, key])
+  @@map("site_content")
+}
+
+// Custom Themes
+model CustomTheme {
+  id          String   @id @default(cuid())
+  userId      String?
+  name        String
+  colors      Json
+  typography  Json?
+  spacing     Json?
+  animations  Json?
+  effects     Json?
+  isActive    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("custom_themes")
+}
+
+// Messages/Contact Forms
+model Message {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  email     String
+  subject   String
+  message   String
+  status    String   @default("unread") // unread, read, replied, archived
+  priority  String   @default("medium") // low, medium, high
+  starred   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+// File Uploads
+model File {
+  id          String   @id @default(cuid())
+  filename    String
+  originalName String
+  mimetype    String
+  size        Int
+  url         String
+  path        String
+  createdAt   DateTime @default(now())
+
+  @@map("files")
+}
+
+// User Settings
+model UserSettings {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+
+  // Site Settings
+  siteName          String   @default("My Portfolio")
+  siteDescription   String   @default("A showcase of my work and skills")
+  siteUrl           String   @default("https://myportfolio.com")
+  language          String   @default("en")
+  timezone          String   @default("UTC")
+  maintenanceMode   Boolean  @default(false)
+  allowComments     Boolean  @default(true)
+  enableAnalytics   Boolean  @default(true)
+  enableSEO         Boolean  @default(true)
+
+  // Email Settings
+  contactEmail      String   @default("contact@myportfolio.com")
+  smtpHost          String?
+  smtpPort          String   @default("587")
+  smtpUser          String?
+  smtpPassword      String?
+  enableEmailNotifications Boolean @default(true)
+  autoReplyEnabled  Boolean  @default(false)
+  autoReplyMessage  String   @default("Thank you for your message. I'll get back to you soon!")
+
+  // Security Settings
+  enableRateLimit   Boolean  @default(true)
+  maxRequestsPerMinute Int    @default(60)
+  enableCaptcha     Boolean  @default(false)
+  captchaSiteKey    String?
+  captchaSecretKey  String?
+  enableCSP         Boolean  @default(true)
+  allowedDomains    String   @default("myportfolio.com, *.myportfolio.com")
+
+  // Notification Preferences
+  emailNotifications Boolean  @default(true)
+  projectUpdates     Boolean  @default(true)
+  securityAlerts     Boolean  @default(true)
+  marketingEmails    Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_settings")
+}

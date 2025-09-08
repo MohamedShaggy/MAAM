@@ -1,0 +1,302 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+
+    /* Light mode theme variables for dynamic theming - using HSL format */
+    --theme-primary: 262 83% 58%; /* Purple for light mode */
+    --theme-secondary: 252 75% 60%; /* Purple-blue for light mode */
+    --theme-accent: 316 72% 69%; /* Pink for light mode */
+    --theme-gradient-from: 262 83% 58%;
+    --theme-gradient-to: 316 72% 69%;
+    --theme-gradient-via: 292 84% 61%;
+    --theme-success: 160 84% 39%; /* Green */
+    --theme-warning: 38 92% 50%; /* Amber */
+    --theme-error: 0 84% 60%; /* Red */
+    --theme-info: 217 91% 60%; /* Blue */
+    --theme-radius: 8px;
+    --theme-duration: 300ms;
+    --theme-easing: cubic-bezier(0.4, 0, 0.2, 1);
+    --theme-blur: 20px;
+    --theme-gradient-opacity: 0.2;
+    --shadow-color: 240 3.7% 15.9%; /* Light mode shadow color */
+
+    /* Enhanced color palette for creative themes */
+    --font-heading: var(--font-sans);
+    --font-body: var(--font-sans);
+    --animation-duration: var(--theme-duration);
+    --animation-easing: var(--theme-easing);
+
+    /* Dynamic gradients using theme variables */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--theme-gradient-from)) 0%, hsl(var(--theme-gradient-to)) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--theme-secondary)) 0%, hsl(var(--theme-accent)) 100%);
+    --gradient-primary-opacity: linear-gradient(
+      135deg,
+      color-mix(in srgb, hsl(var(--theme-gradient-from)) calc(var(--theme-gradient-opacity) * 100%), transparent) 0%,
+      color-mix(in srgb, hsl(var(--theme-gradient-to)) calc(var(--theme-gradient-opacity) * 100%), transparent) 100%
+    );
+
+    --shadow-elevation-low: 0 1px 2px 0 hsl(var(--shadow-color) / 0.05);
+    --shadow-elevation-medium: 0 4px 6px -1px hsl(var(--shadow-color) / 0.1), 0 2px 4px -1px
+      hsl(var(--shadow-color) / 0.06);
+    --shadow-elevation-high: 0 20px 25px -5px hsl(var(--shadow-color) / 0.1), 0 10px 10px -5px
+      hsl(var(--shadow-color) / 0.04);
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+
+    /* Dark mode specific overrides */
+    --shadow-color: 0 0% 0%; /* Dark mode shadow color */
+
+    /* Dark mode gradient overrides */
+    --gradient-primary: linear-gradient(135deg, hsl(270 100% 70%) 0%, hsl(320 100% 70%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--muted)) 100%);
+
+    /* Dark mode theme variables - specific to dark mode only */
+    --theme-primary: 270 100% 70%; /* Purple for dark mode */
+    --theme-secondary: 240 100% 70%; /* Blue for dark mode */
+    --theme-accent: 320 100% 70%; /* Pink for dark mode */
+    --theme-gradient-from: 270 100% 70%;
+    --theme-gradient-to: 320 100% 70%;
+    --theme-gradient-via: 300 100% 70%;
+    /* Success, warning, error, info colors remain the same for both modes */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    transition: background-color var(--animation-duration) var(--animation-easing), color var(--animation-duration)
+      var(--animation-easing);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+
+  p,
+  span,
+  div {
+    font-family: var(--font-body);
+  }
+}
+
+@layer utilities {
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+  /* Enhanced animation utilities with theme-aware timing */
+  .animate-smooth {
+    transition: all var(--animation-duration) var(--animation-easing);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn var(--animation-duration) var(--animation-easing) forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp calc(var(--animation-duration) * 2) var(--animation-easing) forwards;
+  }
+
+  /* Dynamic theme-aware gradient utilities */
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+
+  .bg-gradient-secondary {
+    background-image: var(--gradient-secondary);
+  }
+
+  .bg-gradient-primary-opacity {
+    background-image: var(--gradient-primary-opacity);
+  }
+
+  /* Theme-aware color utilities */
+  .bg-theme-primary {
+    background-color: hsl(var(--theme-primary));
+  }
+
+  .bg-theme-secondary {
+    background-color: hsl(var(--theme-secondary));
+  }
+
+  .bg-theme-accent {
+    background-color: hsl(var(--theme-accent));
+  }
+
+  .text-theme-primary {
+    color: hsl(var(--theme-primary));
+  }
+
+  .text-theme-secondary {
+    color: hsl(var(--theme-secondary));
+  }
+
+  .text-theme-accent {
+    color: hsl(var(--theme-accent));
+  }
+
+  .border-theme-primary {
+    border-color: hsl(var(--theme-primary));
+  }
+
+  .border-theme-secondary {
+    border-color: hsl(var(--theme-secondary));
+  }
+
+  /* Status color utilities */
+  .bg-theme-success {
+    background-color: hsl(var(--theme-success));
+  }
+
+  .bg-theme-warning {
+    background-color: hsl(var(--theme-warning));
+  }
+
+  .bg-theme-error {
+    background-color: hsl(var(--theme-error));
+  }
+
+  .bg-theme-info {
+    background-color: hsl(var(--theme-info));
+  }
+
+  .text-theme-success {
+    color: hsl(var(--theme-success));
+  }
+
+  .text-theme-warning {
+    color: hsl(var(--theme-warning));
+  }
+
+  .text-theme-error {
+    color: hsl(var(--theme-error));
+  }
+
+  .text-theme-info {
+    color: hsl(var(--theme-info));
+  }
+
+  /* Enhanced shadow utilities */
+  .shadow-elevation-low {
+    box-shadow: var(--shadow-elevation-low);
+  }
+
+  .shadow-elevation-medium {
+    box-shadow: var(--shadow-elevation-medium);
+  }
+
+  .shadow-elevation-high {
+    box-shadow: var(--shadow-elevation-high);
+  }
+}
+
+/* Fixed and enhanced keyframe animations */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.7;
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.7;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+  /* Ensure blob animations don't cause elements to disappear */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Prevent animation-related disappearing issues */
+.animate-bounce,
+.animate-pulse,
+.animate-spin {
+  will-change: transform;
+  backface-visibility: hidden;
+}

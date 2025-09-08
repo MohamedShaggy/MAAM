@@ -1,0 +1,19 @@
+# Database
+DATABASE_URL="postgresql://username:password@localhost:5432/portfolio_db?schema=public"
+
+# JWT Secret
+JWT_SECRET="7ca1d0290f51259acaf17e35fe2a6d2d9f11bf78786831de8a05f253cb19684d17819841ecdda990c148382d3aca12bd28d88f1cbb74b27db46758f9a798b384"
+
+# Email Configuration
+SMTP_HOST="smtp.gmail.com"
+SMTP_PORT="587"
+SMTP_USER="your-email@gmail.com"
+SMTP_PASSWORD="your-app-password"
+
+# File Upload
+UPLOAD_DIR="./uploads"
+MAX_FILE_SIZE="10485760" # 10MB in bytes
+
+# Admin User (for initial setup)
+ADMIN_EMAIL="admin@yourportfolio.com"
+ADMIN_PASSWORD="admin123" # Change this!
